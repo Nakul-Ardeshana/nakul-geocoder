@@ -2,8 +2,8 @@ import pandas
 import folium
 
 
-def mapmake(filename):
-    data = pandas.read_csv("uploads/uploaded-%s.csv"%filename)
+def mapmake():
+    data = pandas.read_csv("uploads/uploaded-sample.csv")
     infos=[]
     norows = len(data.index)    
     for i in range(norows):
@@ -27,5 +27,5 @@ def mapmake(filename):
     folium.TileLayer('cartodbdark_matter').add_to(map)
 
     folium.LayerControl().add_to(map)
-    map.save("uploads/map-%s.html"%filename)
+    map.save("uploads/map.html")
     pass
