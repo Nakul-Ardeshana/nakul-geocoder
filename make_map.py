@@ -29,4 +29,3 @@ def mapmake(filename):
     folium.LayerControl().add_to(map)
     map.save("uploads/map-%s.html"%filename)
     pass
-mapmake()
