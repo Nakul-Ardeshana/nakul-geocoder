@@ -19,7 +19,6 @@ def success():
     if request.method == 'POST':
         global file
         file = request.files["File"]
-        filenames = file.filename
         # file.save(secure_filename("uploaded"+file.filename))
 
         if file.filename.lower().endswith(".csv") == False:
@@ -33,21 +32,21 @@ def success():
         try:
             df["Latitude"]=df["Address"].apply(arc.geocode).apply(lambda x: x.latitude if x != None else None)
             df["Longitude"]=df["Address"].apply(arc.geocode).apply(lambda x: x.longitude if x != None else None)
-            df.to_csv("uploads/uploaded-%s.csv"%filenames, index=False)
-            mapmake(filenames)
+            df.to_csv("uploads/uploaded-sample.csv", index=False)
+            mapmake()
             return render_template("index.html", text=df.to_html(), btn="download.html", hc="fit-content")
         except Exception as e:
             return render_template("index.html", text=e)
         
 @app.route("/download/")
 def download():
-    zipfolder = zipfile.ZipFile('uploads/%s.zip'%filenames,'w', compression = zipfile.ZIP_STORED)
+    zipfolder = zipfile.ZipFile('uploads/sample.zip','w', compression = zipfile.ZIP_STORED)
 
-    zipfolder.write("uploads/map-%s.html"%filenames)    
-    zipfolder.write("uploads/uploaded-%s.csv"%filenames)
+    zipfolder.write("uploads/map.html")    
+    zipfolder.write("uploads/uploaded-sample.csv")
     zipfolder.close()
 
-    return send_file("uploads/%s.zip"%filenames,attachment_filename="your_files.zip", mimetype='zip',as_attachment=True)
+    return send_file("uploads/sample.zip",attachment_filename="your_files.zip", mimetype='zip',as_attachment=True)
 
 if __name__ == '__main__':
     app.debug=False
