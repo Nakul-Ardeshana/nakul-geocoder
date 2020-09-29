@@ -15,7 +15,7 @@
         <div class="container">
             <div class="comic">
                 <h1><b>Super Geocoder</b></h1>
-                <h3>Please upload your CSV file. The value containing addresses should be in a column named address or Address even if your address column has the city info</h3>
+                <h3>Please upload your CSV file. The value containing addresses should be in a column named address or Address even if your address column has the city info <br> dont upload a csv file that contains more than 25 addresses also you may see a error message but it will be on the side of heroku so nothing to worry about</h3>
             </div>
             <form action="{{url_for('success')}}"  enctype="multipart/form-data" method="POST">
                 <input class="file" title="Your File will be safe with us" type="file" name="File" required> <br>
